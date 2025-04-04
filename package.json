@@ -1,7 +1,8 @@
 {
   "name": "saber-api",
-  "owner": "codingdestro",
+  "homepage": "https://github.com/codingdestro/saber-api",
   "repository": "https://github.com/codingdestro/saber-api",
+  "author": "codingdestro",
   "version": "0.1.0",
   "description": "A React hook for handling API requests",
   "main": "dist/index.js",
@@ -23,7 +24,6 @@
     "hooks",
     "typescript"
   ],
-  "author": "",
   "license": "MIT",
   "peerDependencies": {
     "react": ">=18.0.0",
