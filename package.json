@@ -3,7 +3,7 @@
   "homepage": "https://github.com/codingdestro/saber-api",
   "repository": "https://github.com/codingdestro/saber-api",
   "author": "codingdestro",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "A React hook for handling API requests",
   "main": "dist/index.js",
   "module": "dist/index.js",
