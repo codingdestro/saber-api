@@ -1,6 +1,6 @@
 # Saber API
 
-A collection of useful React hooks with TypeScript support.
+A lightweight React hook for handling API requests with TypeScript support.
 
 ## Installation
 
@@ -12,29 +12,40 @@ yarn add saber-api
 
 ## Available Hooks
 
-### useCounter
+### useSaber
 
-A simple counter hook with increment, decrement, and reset functionality.
+A powerful hook for handling API requests with built-in loading, error, and status management.
 
 ```typescript
-import { useCounter } from 'saber-api';
+import { useSaber, fetchSaber } from 'saber-api';
 
 function MyComponent() {
-  const { count, increment, decrement, reset } = useCounter({
-    initialValue: 0, // optional, defaults to 0
-    step: 1, // optional, defaults to 1
+  const { data, loading, error, status, call } = useSaber(async () => {
+    // Your API call here
+    return await fetchSaber<UserData>('https://api.example.com/users');
   });
 
-  return (
-    <div>
-      <p>Count: {count}</p>
-      <button onClick={increment}>Increment</button>
-      <button onClick={decrement}>Decrement</button>
-      <button onClick={reset}>Reset</button>
-    </div>
-  );
+  // Trigger the API call
+  useEffect(() => {
+    call();
+  }, []);
+
+  if (loading) return <div>Loading...</div>;
+  if (error) return <div>Error: {error.message}</div>;
+  if (data) return <div>Data: {JSON.stringify(data)}</div>;
+
+  return null;
 }
 ```
+
+The `useSaber` hook provides:
+- `data`: The response data (null initially)
+- `loading`: Boolean indicating if the request is in progress
+- `error`: Any error that occurred during the request
+- `status`: Current status ('idle' | 'loading' | 'success' | 'error')
+- `call`: Function to trigger the API request
+
+The `fetchSaber` utility function provides a typed wrapper around the fetch API with proper error handling.
 
 ## Development
 
@@ -46,6 +57,8 @@ function MyComponent() {
 3. Run tests:
    ```bash
    npm test
+   # or with watch mode
+   npm run test:watch
    ```
 4. Build the package:
    ```bash
@@ -56,12 +69,14 @@ function MyComponent() {
    npm run dev
    ```
 
-The package is built using [tsup](https://github.com/egoist/tsup), which provides:
-- CommonJS and ESM output formats
-- TypeScript declarations
-- Source maps
-- Tree shaking
-- Fast builds
+Additional development commands:
+- `npm run lint`: Run ESLint
+- `npm run format`: Format code with Prettier
+
+## Requirements
+
+- React >= 18.0.0
+- React DOM >= 18.0.0
 
 ## License
 
